@@ -17,7 +17,7 @@ def detail(request, hero_id):
     context = {
         'single_hero': single_hero
     }
-    return render(request, 'superheros/detail.html')
+    return render(request, 'superheros/detail.html', context)
 
 def create(request):
     if request.method == "POST":
