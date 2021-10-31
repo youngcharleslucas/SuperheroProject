@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse,
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from .models import Superhero
 
@@ -33,13 +33,4 @@ def create(request):
     else:
         return render(request, 'superheros/create.html')
 
-def delete_heros(request, hero_id):
-    delete_hero = Superhero.objects.get(pk=hero_id)
-    delete_hero.delete()
-    # context = {
-    #     'delete_hero': delete_hero
-    # }
-    # delete_hero.delete()
-    # return render(request, 'superheros/index.html')
-    return redirect('superheros/index.html')
 
