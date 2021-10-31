@@ -32,3 +32,14 @@ def create(request):
 
     else:
         return render(request, 'superheros/create.html')
+
+def delete_hero(request, hero_id):
+    delete_heros = Superhero.objects.filter(pk=hero_id)
+    delete_heros.delete()
+    # context = {
+    #     'delete_hero': delete_hero
+    # }
+    # delete_hero.delete()
+    # return render(request, 'superheros/index.html')
+    return HttpResponseRedirect(reverse('superheros:index'))
+
