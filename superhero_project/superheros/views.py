@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.shortcuts import render
+from django.urls import reverse,
+from django.shortcuts import render, redirect
 from .models import Superhero
 
 # Create your views here.
@@ -33,13 +33,13 @@ def create(request):
     else:
         return render(request, 'superheros/create.html')
 
-def delete_hero(request, hero_id):
-    delete_heros = Superhero.objects.filter(pk=hero_id)
-    delete_heros.delete()
+def delete_heros(request, hero_id):
+    delete_hero = Superhero.objects.get(pk=hero_id)
+    delete_hero.delete()
     # context = {
     #     'delete_hero': delete_hero
     # }
     # delete_hero.delete()
     # return render(request, 'superheros/index.html')
-    return HttpResponseRedirect(reverse('superheros:index'))
+    return redirect('superheros/index.html')
 
