@@ -41,8 +41,19 @@ def delete_hero(request, hero_id):
     # why is delete not recognized in the intellitext? Save is recognized. It works though.
     return HttpResponseRedirect(reverse('superheros:index'))
 
+def update_hero(request, hero_id):
+    updated_hero=Superhero.objects.get(pk=hero_id)
+    form = HeroForm(request.POST or None, instance = updated_hero) 
+    if form.is_valid():
+        form.save()
+    context = {
+        'form': form,
+        'updated_hero': updated_hero
+    }
+    return render(request, 'superheros/update_hero.html', context)
+    # return HttpResponseRedirect(reverse('superheros:index')), context
 
-# def update_hero(request, hero_id):
+    # def update_hero(request, hero_id):
 #     update_hero=Superhero.objects.get(pk=hero_id)
 #     context = {
 #         'update_hero': update_hero
@@ -86,15 +97,3 @@ def delete_hero(request, hero_id):
 #         'form': form,
 #     }
 #     return render(request, 'superheros/update_hero.html', context)
-
-def update_hero(request, hero_id):
-    updated_hero=Superhero.objects.get(pk=hero_id)
-    form = HeroForm(request.POST or None, instance = updated_hero) 
-    if form.is_valid():
-        form.save()
-    context = {
-        'form': form,
-        'updated_hero': updated_hero
-    }
-    # return render(request, 'superheros/update_hero.html', context)
-    return redirect('index')

@@ -8,18 +8,14 @@
 </head>
 <body>
     <h1> {{update_hero}} </h1>
-    {% if submitted %}
-        Hero updated
-
-    {% else %}
-
-    
-    <form action="" method=POST>
+      <form action="" method=POST>
         {% csrf_token %}
         {{ form.as_p }}
         <br>
         <input type="submit" value="Update">
     </form>
-    {% endif %}
+    <br>
+    <br>
+    <a href="{% url 'superheros:index' %}">Home</a>
 </body>
 </html>
