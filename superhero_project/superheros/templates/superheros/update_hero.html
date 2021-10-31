@@ -8,11 +8,18 @@
 </head>
 <body>
     <h1> {{update_hero}} </h1>
+    {% if submitted %}
+        Hero updated
+
+    {% else %}
+
+    
     <form action="" method=POST>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <br>
+        <input type="submit" value="Update">
     </form>
-    
+    {% endif %}
 </body>
 </html>

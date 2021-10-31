@@ -1,3 +1,4 @@
+from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -61,9 +62,39 @@ def delete_hero(request, hero_id):
 #         new_hero.save()
 #         return HttpResponseRedirect(reverse('superheros:index'))
 
+# def update_hero(request, hero_id):
+#     submitted = False
+#     if request.method == "POST":
+#         form = HeroForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # return HttpResponseRedirect(reverse('superheros:index')), submitted = True
+#             return HttpResponseRedirect(reverse('superheros:index'))
+#     else:
+#         form = HeroForm
+#         if 'submitted' in request.GET:
+#             submitted = True
+#     context = {
+#         'form': form,
+#         'submitted': submitted
+#     }
+#     return render(request, 'superheros/update_hero.html', context)
+
+# def update_hero(request, hero_id):
+#     form = HeroForm(request.POST) 
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'superheros/update_hero.html', context)
+
 def update_hero(request, hero_id):
-    form = HeroForm
+    updated_hero=Superhero.objects.get(pk=hero_id)
+    form = HeroForm(request.POST or None, instance = updated_hero) 
+    if form.is_valid():
+        form.save()
     context = {
-        'form': form
+        'form': form,
+        'updated_hero': updated_hero
     }
-    return render(request, 'superheros/update_hero.html', context)
+    # return render(request, 'superheros/update_hero.html', context)
+    return redirect('index')
